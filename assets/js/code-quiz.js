@@ -3,6 +3,10 @@ var currentQuestionIndex = 0;
 var timerId;
 var timeLimit = questions.length * 10;
 var score = 0;
+var highScore = JSON.parse(localStorage.getItem("highScore"));
+if (!highScore) {
+   highScore = 0;
+}
 var questionCount = questions.length;
 
 // DOM element variables
@@ -13,6 +17,7 @@ var timeEl = document.getElementById("time");
 var timerEl = document.getElementById("timer");
 var answersEl = document.getElementById("answers");
 var submitBtn = document.getElementById("submit-question");
+var highscoreBtn = document.getElementById("save-score");
 
 // Start Quiz function
 function startQuiz() {
@@ -88,7 +93,7 @@ function answerSubmit(event) {
       } else {
          getQuestion();
       }
-   }, 1000);
+   }, 600);
 }
 
 function endQuiz() {
@@ -106,7 +111,17 @@ function endQuiz() {
 
    document.getElementById("score").textContent = score;
    document.getElementById("question-count").textContent = questionCount;
+   document.getElementById("highscore").textContent = highScore;
+}
+
+function saveScore() {
+   if (score > highScore) {
+      localStorage.setItem("highScore", JSON.stringify(score));
+      console.log("Saved highscore.");
+   }
 }
 
 // Start Quiz listener
 startBtn.onclick = startQuiz;
+// Save highscore
+highscoreBtn.onclick = saveScore;

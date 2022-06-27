@@ -23,5 +23,5 @@ questions = [
       ["true", "false"],
       1
    ),
-   new Question("JavaScript only runs in browsers.", ["true", "false"], 0)
+   new Question("JavaScript only runs in browsers.", ["true", "false"], 1)
 ];

@@ -7,7 +7,7 @@ var timeLimit = questions.length * 10;
 var startBtn = document.getElementById("start-button");
 var questionsEl = document.getElementById("questions");
 var timerEl = document.getElementById("time");
-var choicesEl = document.getElementById("choices");
+var answersEl = document.getElementById("answers");
 var submitBtn = document.getElementById("submit-question");
 
 // Start Quiz function
@@ -20,7 +20,7 @@ function startQuiz() {
 
    // set timer
    timerId = setInterval(clockTick, 1000);
-   timerEl.textContent = time;
+   timerEl.textContent = timeLimit;
 
    getQuestion();
 }
@@ -38,7 +38,7 @@ function getQuestion() {
       var answerOption = document.createElement("button");
       answerOption.setAttribute("class", "answer");
       answerOption.setAttribute("value", answer);
-      answerOption.textContent = i + 1 + answer;
+      answerOption.textContent = answer;
 
       answerOption.onclick = answerSubmit;
 
@@ -47,11 +47,30 @@ function getQuestion() {
 }
 
 function clockTick() {
-   time--;
+   timeLimit--;
    timerEl.textContent = timeLimit;
 
    if (timeLimit <= 0) {
       // add end quiz function
+   }
+}
+
+function answerSubmit(event) {
+   if (this.value !== questions[currentQuestionIndex].correctAnswer) {
+      timeLimit = Math.max(timeLimit - 10, 0);
+      timerEl.textContent = timeLimit;
+   } 
+   else {
+
+   }
+
+   currentQuestionIndex++;
+
+   if (currentQuestionIndex >= questions.length) {
+      endQuiz();
+   }
+   else {
+      getQuestion();
    }
 }
 

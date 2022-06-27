@@ -9,7 +9,8 @@ var questionCount = questions.length;
 var startBtn = document.getElementById("start-button");
 var questionsEl = document.getElementById("questions");
 var feedbackEl = document.getElementById("feedback");
-var timerEl = document.getElementById("time");
+var timeEl = document.getElementById("time");
+var timerEl = document.getElementById("timer");
 var answersEl = document.getElementById("answers");
 var submitBtn = document.getElementById("submit-question");
 
@@ -23,7 +24,7 @@ function startQuiz() {
 
    // set timer
    timerId = setInterval(clockTick, 1000);
-   timerEl.textContent = timeLimit;
+   timeEl.textContent = timeLimit;
 
    getQuestion();
 }
@@ -51,7 +52,7 @@ function getQuestion() {
 
 function clockTick() {
    timeLimit--;
-   timerEl.textContent = timeLimit;
+   timeEl.textContent = timeLimit;
 
    if (timeLimit <= 0) {
       // add end quiz function
@@ -61,11 +62,12 @@ function clockTick() {
 function answerSubmit(event) {
    if (this.value !== questions[currentQuestionIndex].correctAnswer) {
       timeLimit = Math.max(timeLimit - 10, 0);
-      timerEl.textContent = timeLimit;
+      timeEl.textContent = timeLimit;
 
       // feedback
       feedbackEl.textContent = "Incorrect.";
    } else {
+      score += 1;
       // feedback
       feedbackEl.textContent = "Correct!";
    }
@@ -81,6 +83,24 @@ function answerSubmit(event) {
          getQuestion();
       }
    }, 1000);
+}
+
+function endQuiz() {
+
+   // clear timer
+   timeLimit = 0;
+   clearInterval(timerId);
+
+   // hide elements
+   questionsEl.setAttribute("class", "hidden");
+   timerEl.setAttribute("class", "hidden");
+
+   // show results
+   var resultsEl = document.getElementById("results");
+   resultsEl.removeAttribute("class");
+
+   document.getElementById("score").textContent = score;
+   document.getElementById("question-count").textContent = questionCount;
 }
 
 // Start Quiz listener

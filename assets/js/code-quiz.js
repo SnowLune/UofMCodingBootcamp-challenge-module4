@@ -30,6 +30,29 @@ function getQuestion() {
 
    var textEl = document.getElementById("question-text");
    textEl.textContent = currentQuestion.text;
+
+   answersEl.innerHTML = "";
+
+   currentQuestion.answers.forEach((answer, i) => {
+      // Create simple button for every possible answer
+      var answerOption = document.createElement("button");
+      answerOption.setAttribute("class", "answer");
+      answerOption.setAttribute("value", answer);
+      answerOption.textContent = i + 1 + answer;
+
+      answerOption.onclick = answerSubmit;
+
+      answersEl.appendChild(answerOption);
+   });
+}
+
+function clockTick() {
+   time--;
+   timerEl.textContent = timeLimit;
+
+   if (timeLimit <= 0) {
+      // add end quiz function
+   }
 }
 
 // Start Quiz listener

@@ -17,7 +17,17 @@
 
          <div id="questions" class="hidden">
             <h2 id="question-text"></h2>
+            <p id="feedback"></p>
             <div id="answers" class="choices"></div>
+         </div>
+
+         <div id="results" class="hidden">
+            <h1>Quiz Results</h1>
+            <h2>
+               You answered <span id="score"></span> of
+               <span id="question-count"></span> questions correctly.
+            </h2>
+            <button id="save-score">Save Score</button>
          </div>
       </div>
       <script src="./assets/js/questions.js"></script>

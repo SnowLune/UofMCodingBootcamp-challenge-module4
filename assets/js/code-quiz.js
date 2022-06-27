@@ -2,10 +2,13 @@
 var currentQuestionIndex = 0;
 var timerId;
 var timeLimit = questions.length * 10;
+var score = 0;
+var questionCount = questions.length;
 
 // DOM element variables
 var startBtn = document.getElementById("start-button");
 var questionsEl = document.getElementById("questions");
+var feedbackEl = document.getElementById("feedback");
 var timerEl = document.getElementById("time");
 var answersEl = document.getElementById("answers");
 var submitBtn = document.getElementById("submit-question");
@@ -33,7 +36,7 @@ function getQuestion() {
 
    answersEl.innerHTML = "";
 
-   currentQuestion.answers.forEach((answer, i) => {
+   currentQuestion.answers.forEach((answer) => {
       // Create simple button for every possible answer
       var answerOption = document.createElement("button");
       answerOption.setAttribute("class", "answer");
@@ -59,19 +62,25 @@ function answerSubmit(event) {
    if (this.value !== questions[currentQuestionIndex].correctAnswer) {
       timeLimit = Math.max(timeLimit - 10, 0);
       timerEl.textContent = timeLimit;
-   } 
-   else {
 
+      // feedback
+      feedbackEl.textContent = "Incorrect.";
+   } else {
+      // feedback
+      feedbackEl.textContent = "Correct!";
    }
 
-   currentQuestionIndex++;
+   setTimeout(() => {
+      feedbackEl.textContent = "";
 
-   if (currentQuestionIndex >= questions.length) {
-      endQuiz();
-   }
-   else {
-      getQuestion();
-   }
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex >= questions.length) {
+         endQuiz();
+      } else {
+         getQuestion();
+      }
+   }, 1000);
 }
 
 // Start Quiz listener

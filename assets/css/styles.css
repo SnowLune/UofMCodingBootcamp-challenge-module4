@@ -1,3 +1,19 @@
+body {
+   background-color: rgb(255, 255, 229);
+}
+
 .hidden {
    display: none;
+}
+
+button,
+.content {
+   font-family: "Courier New", Courier, monospace;
+}
+
+.content {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
 }

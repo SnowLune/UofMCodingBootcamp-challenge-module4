@@ -55,11 +55,17 @@ function clockTick() {
    timeEl.textContent = timeLimit;
 
    if (timeLimit <= 0) {
-      // add end quiz function
+      endQuiz();
    }
 }
 
 function answerSubmit(event) {
+   // disable buttons
+   var buttonEls = document.getElementsByClassName("answer");
+   for (i = 0; i < buttonEls.length; i++) {
+      buttonEls[i].setAttribute("disabled", "");
+   }
+
    if (this.value !== questions[currentQuestionIndex].correctAnswer) {
       timeLimit = Math.max(timeLimit - 10, 0);
       timeEl.textContent = timeLimit;
@@ -86,7 +92,6 @@ function answerSubmit(event) {
 }
 
 function endQuiz() {
-
    // clear timer
    timeLimit = 0;
    clearInterval(timerId);
